@@ -355,7 +355,7 @@ async function consultarApiPassagensAereas(){
     const options = {
         method: "GET",
         headers: {
-            "Authorization" : "Bearer HfyCgFL8SrfouGtAG0IT0wPF6gy2"
+            "Authorization" : "Bearer WyK7wEiaxmfIrchAIr2DhLBEMCHt"
         }
     }
 
@@ -483,6 +483,39 @@ document.getElementById("botao2").addEventListener("click", (e) => {
             })
         }    
 
+    })
+
+})
+
+// --------------------------------------------------------------------
+
+async function consultarApiPiadas() {
+
+    const response = await fetch("https://v2.jokeapi.dev/joke/Any?lang=pt");
+
+    const dados = response.json();
+
+    return dados;
+
+}
+
+document.getElementById("botao3").addEventListener("click", (e) => {
+
+    consultarApiPiadas().then(dados => {
+        console.log(dados.setup);
+        console.log(dados.delivery);
+
+        const piadaDiv = document.createElement("div");
+        piadaDiv.style.visibility = "visible";
+        piadaDiv.style.border = "1px solid black";
+        piadaDiv.style.borderRadius = "25px";
+        piadaDiv.style.margin = "20px";
+        piadaDiv.style.padding = "10px";
+        piadaDiv.style.paddingTop = "5px";
+        piadaDiv.style.width = "25%";
+        piadaDiv.style.height = "80px";
+        piadaDiv.innerHTML = "<p>Pergunta: " + dados.setup + "</p>" + "<p>Resposta: " + dados.delivery + "</p><br>";
+        piadaContainer.appendChild(piadaDiv);
     })
 
 })
