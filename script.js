@@ -489,6 +489,8 @@ document.getElementById("botao2").addEventListener("click", (e) => {
 
 // --------------------------------------------------------------------
 
+// CONSULTAR API DE PIADAS //
+
 async function consultarApiPiadas() {
 
     const response = await fetch("https://v2.jokeapi.dev/joke/Any?lang=pt");
@@ -517,5 +519,52 @@ document.getElementById("botao3").addEventListener("click", (e) => {
         piadaDiv.innerHTML = "<p>Pergunta: " + dados.setup + "</p>" + "<p>Resposta: " + dados.delivery + "</p><br>";
         piadaContainer.appendChild(piadaDiv);
     })
+
+})
+
+// --------------------------------------------------------------------
+
+// CONSULTAR API INFORMAÇÕES SOBRE FILME //
+
+async function consultarApiInfoFilmes() {
+
+    const apiKey = "e681a617";
+
+    var titulo = document.getElementById("tituloFilme").value;
+
+    const url = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + titulo + "&r=json";
+
+    const response = await fetch(url);
+
+    const dados = response.json();
+
+    return dados;
+
+}
+
+document.getElementById("botao4").addEventListener("click", (e) => {
+
+    consultarApiInfoFilmes().then(dados => {
+
+        console.log(dados);
+
+        const infoFilmesDiv = document.createElement("div");
+        infoFilmesDiv.style.visibility = "visible";
+        infoFilmesDiv.style.border = "1px solid black";
+        infoFilmesDiv.style.borderRadius = "25px";
+        infoFilmesDiv.style.margin = "20px";
+        infoFilmesDiv.style.padding = "10px";
+        infoFilmesDiv.style.paddingTop = "5px";
+        infoFilmesDiv.style.width = "400px";
+        infoFilmesDiv.innerHTML = "<p><b>Título:</b> " + dados.Title + "</p>" + "<p><b>Ano:</b> " + dados.Year + "</p>" + "<p><b>Descrição:</b> " + dados.Plot + "</p>" + "<p><b>Duração:</b> " + dados.Runtime + "</p>" + "<p><b>Diretor:</b> " + dados.Writer + "</p><br>";
+
+        const imagem = document.createElement("img");
+        imagem.src = dados.Poster;
+        imagem.style.marginLeft = "45px";
+
+        infoFilmesDiv.appendChild(imagem);
+        infoFilmeContainer.appendChild(infoFilmesDiv);
+
+    });
 
 })
